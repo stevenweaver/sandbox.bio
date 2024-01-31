@@ -3,61 +3,15 @@ import Alert from "$components/Alert.svelte";
 import Execute from "$components/Execute.svelte";
 </script>
 
-If you `curl` the GitHub Issues API, you will get back an array of issues:
+Now that we have our NS3 gene alignment and tree, let's see if any of the sites are under selection.
 
-<Execute command={`curl "https://api.github.com/repos/stedolan/jq/issues?per_page=5" > issues.json; cat issues.json`} />
+<Execute command={`hyphy fel --alignment WestNileVirus_NS3.fna --ci Yes --output WestNileVirus_NS3.fna.FEL-ci.json`} />
 
-To get a specific element in the array, give `jq` an index:
-
-<Execute command={`jq '.[4]' issues.json`} />
-
+Let's walk through each part of the above command.
+- `hyphy`: The **Hy**pothesis Testing Using **Phy**logenies (HyPhy) package is an open-source package for evolutionary analysis of genetic sequences. FEL is one of HyPhy's methods, so we'll first invoke HyPhy
+- `fel`: The analysis we want to perform
+- `--alignment`: The file with our NS3 gene alignment and phylogeny. 
 <Alert>
-	**Side Note: Array Indexing in `jq`**:
-
-    Array indexing has some helpful convenience syntax.
-
-    You can select ranges:
-
-    <Execute command={`echo "[1,2,3,4,5]" | jq '.[2:4]'`} />
-
-    You can select one sided ranges:
-
-    <Execute command={`echo "[1,2,3,4,5]" | jq '.[2:]'`} />
-
-    Also, you can use negatives to select from the end:
-
-    <Execute command={`echo "[1,2,3,4,5]" | jq '.[-2:]'`} />
-
+       If you have separate files for your alignment and your phylogeny, use `--alignment` to specify your alignment file and `--tree` to specify your phylogeny file
 </Alert>
-
-You can use the array index with the object index:
-
-<Execute command={`jq '.[4].title' issues.json`} />
-
-And you can use `[]` to get all the elements in the array. For example, here is how I would get the titles of the issues returned by my API request:
-
-<Execute command={`jq '.[].title' issues.json`} />
-
-<Alert>
-	**What I Learned: Array-Index**:
-
-    `jq` lets you select the whole array `[]`, a specific element `[3]`, or ranges `[2:5]` and combine these with the object index if needed.
-
-    It ends up looking something like this:
-
-    <code>jq '.key[].subkey[2]'</code>
-
-</Alert>
-
-<Alert>
-	**Side Note: Removing Quotes From JQ Output**:
-
-    The -r option in `jq` gives you raw strings if you need that.
-
-    <Execute command={`echo '["1","2","3"]' | jq -r '.[]'`} />
-
-    The `-j` option (for join) can combine together your output.
-
-    <Execute command={`echo '["1","2","3","\n"]' | jq -j '.[]'`} />
-
-</Alert>
+- `--output`: What to name your results file
