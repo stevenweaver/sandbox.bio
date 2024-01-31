@@ -5,6 +5,7 @@ import { config as bedtoolsIntro } from "$content/bedtools-intro/config.js";
 import { config as bowtie2Intro } from "$content/bowtie2-intro/config.js";
 import { config as samtoolsIntro } from "$content/samtools-intro/config.js";
 import { config as jqIntro } from "$content/jq-intro/config.js";
+import { config as hyphyIntro } from "$content/hyphy-intro/config.js";
 import { config as awkIntro } from "$content/awk-intro/config.js";
 import { config as fastpIntro } from "$content/fastp-intro/config.js";
 import { config as dnaSecrets } from "$content/dna-secrets/config.js";
@@ -25,6 +26,7 @@ export const tutorials = readable([
 	terminalIntro,
 	carpentriesShellNovice,
 	jqIntro,
+	hyphyIntro,
 	awkIntro,
 	// Bioinformatics
 	bedtoolsIntro,
@@ -46,7 +48,7 @@ export const tutorials = readable([
 export const categories = readable([
 	{
 		name: "Data exploration",
-		tutorials: [terminalIntro, jqIntro, awkIntro]
+		tutorials: [terminalIntro, jqIntro, awkIntro, hyphyIntro]
 	},
 	{
 		name: "File formats",
