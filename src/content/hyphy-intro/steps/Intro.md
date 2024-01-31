@@ -5,13 +5,14 @@ import Execute from "$components/Execute.svelte";
 </script>
 
 <Alert>
-	This tutorial is an interactive version of the <Link href="https://earthly.dev/blog/jq-select/">jq tutorial</Link> developed by <Link href="https://adamgordonbell.com/">Adam Gordon Bell</Link>.
+	For full documentation, please visit the <Link href="http://hyphy.org/methods/selection-methods/">Hyphy documentation</Link> on methods for inferring selection pressure.
 </Alert>
 
-`jq` is a lightweight, command-line JSON processor. To use it, you construct one or more filters, and it applies those filters to a JSON document.
+FEL (**F**ixed **E**ffects **L**ikelihood) is a codon evolutionary model designed to test for selection at the site level. Each "site" is a codon. FEL uses a maximum-likelihood (ML) approach to infer nonsynoymous (dN) and synonymous (dS) substitution rates on a per-site basis for a given coding alignment and corresponding phylogeny. This method assumes that the selection pressure for each site is constant along the entire phylogeny.
 
-The simplest filter is the **identity filter** which returns all its input (`.`):
+Evolutionary change at a single site can indicate that a gene has gained a new function, or has lost a previous function. Single-site substitutions frequently occur in viruses, which are under strong evolutionary pressure from the host immune system. To demonstrate how FEL can help identify selection in viral lineages, we'll look at the NS3 gene from West Nile Virus.
 
-<Execute command={`echo '{"key1": {"key2":"value1"}}' | jq '.'`} />
+<Alert>
+	The West Nile Virus dataset was sourced from Brault, A., Huang, CH., Langevin, S. et al. A single positively selected West Nile viral mutation confers increased virogenesis in American crows. Nat Genet **39**, 1162–1166 (2007). https://doi-org.libproxy.temple.edu/10.1038/ng2097
+</Alert>
 
-This filter is handy for just pretty-printing a JSON document. I'm going to ignore the pretty-printing and jump right into using `jq` to transform JSON documents.
